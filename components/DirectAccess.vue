@@ -44,7 +44,7 @@ export default {
   methods: {
     fetchDataCategory() {
       axios
-        .get(`http://localhost:1337/destinations/`, {
+        .get(`https://back-italie.herokuapp.com/destinations/`, {
           params: {
             _limit: 5,
           },

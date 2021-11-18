@@ -25,7 +25,7 @@ export default {
   },
   mounted(){
     axios
-    .get('http://localhost:1337/index')
+    .get('https://back-italie.herokuapp.com/index')
     .then((response) => {
           this.data = response.data;
         

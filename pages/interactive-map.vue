@@ -87,7 +87,7 @@ export default {
     async init() {
       const locations = [];
       try {
-        const results = await axios.get("http://localhost:1337/destinations");
+        const results = await axios.get("https://back-italie.herokuapp.com/destinations");
 
         for (let i = 0; i < results.data.length; i++) {
           locations.push({
@@ -269,7 +269,7 @@ export default {
       //blockRetra1.classList.add("left-translation");
     },
     fetchDataCategory(id) {
-      axios.get(`http://localhost:1337/destinations/${id}`).then((response) => {
+      axios.get(`https://back-italie.herokuapp.com/destinations/${id}`).then((response) => {
         this.informations = {
           nomDeVille: response.data.Titre,
           date: response.data.Date,

@@ -99,7 +99,7 @@ export default {
   //   },
   mounted() {
     axios
-      .get(`http://localhost:1337/destinations/${this.id}`)
+      .get(`https://back-italie.herokuapp.com/destinations/${this.id}`)
       .then((response) => {
         this.projet = {
           titre: response.data.Titre,

@@ -26,8 +26,11 @@
       </div>
     </div>
    
- <CoolLightBox  :items="images" :index="indexun" :effect="'fade'" @close="index = null">
+
+   
+ <CoolLightBox :items="images" :index="indexun" :effect="'fade'" @close="indexun = null">
     </CoolLightBox>
+ 
     
     
     <div id="gallery">
@@ -61,8 +64,7 @@ import CoolLightBox from "vue-cool-lightbox";
 import "vue-cool-lightbox/dist/vue-cool-lightbox.min.css";
 
 import axios from "axios";
-if (process.browser) {
-}
+
 import Masonry from "masonry-layout";
 import ImagesLoaded from "imagesloaded";
 export default {

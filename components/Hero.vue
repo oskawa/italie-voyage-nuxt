@@ -6,8 +6,8 @@
       >
         <div class="col-12 col-lg-8">
           <h1>Un bel viaggio in tutta Italia</h1>
-          <!-- <nuxt-link></nuxt-link> -->
-          <button>Découvrez les destinations</button>
+         <NuxtLink to="/interactive-map"><button>Découvrez les destinations</button></NuxtLink>
+        
         </div>
       </div>
     </div>

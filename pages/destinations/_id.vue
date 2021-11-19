@@ -142,6 +142,11 @@ export default {
 img {
   width: 100%;
   border-radius: 1%;
+  filter:grayscale(0.5);
+  &:hover{
+    filter:grayscale(0);
+    cursor: pointer;
+  }
 }
 .box-0 {
   width: 50%;

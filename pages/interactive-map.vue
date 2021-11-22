@@ -1,5 +1,6 @@
 <template>
   <div>
+    <section id="loading"></section>
     <section id="canvas"></section>
     <section id="front">
       <div class="container-fluid">
@@ -75,6 +76,8 @@ export default {
         image: "",
       },
       showInformation: false,
+
+      LOADING_MANAGER: null,
     };
   },
   mounted() {
@@ -85,9 +88,12 @@ export default {
       this.showInformation = false;
     },
     async init() {
+      var RESOURCES_LOADED = false;
       const locations = [];
       try {
-        const results = await axios.get("https://back-italie.herokuapp.com/destinations");
+        const results = await axios.get(
+          "https://back-italie.herokuapp.com/destinations"
+        );
 
         for (let i = 0; i < results.data.length; i++) {
           locations.push({
@@ -101,8 +107,13 @@ export default {
       } catch (error) {
         console.log(error);
       }
+      const loadingManager = new THREE.LoadingManager();
 
-      const loader = new THREE.TextureLoader();
+      loadingManager.onLoad = function () {
+        console.log("Finito");
+        RESOURCES_LOADED = true;
+      };
+      const loader = new THREE.TextureLoader(loadingManager);
       const height = loader.load("/three/alpha_HD.jpg");
       const texture = loader.load("/three/texture_HD.jpg");
       const alpha = loader.load("/three/alphaSquare.png");
@@ -236,8 +247,18 @@ export default {
        */
 
       const clock = new THREE.Clock();
+      loadingManager.onProgress = function (item, loaded, total) {
+            console.log(item, loaded, total);
+          };
 
       const tick = () => {
+        if (RESOURCES_LOADED == false) {
+          
+          window.requestAnimationFrame(tick);
+          return;
+        }
+        var test12 = document.querySelector("#loading");
+        test12.style.visibility = "hidden";
         this.renderer1.render(scene, this.camera);
 
         this.renderer.render(scene, this.camera);
@@ -269,22 +290,36 @@ export default {
       //blockRetra1.classList.add("left-translation");
     },
     fetchDataCategory(id) {
-      axios.get(`https://back-italie.herokuapp.com/destinations/${id}`).then((response) => {
-        this.informations = {
-          nomDeVille: response.data.Titre,
-          date: response.data.Date,
-          descriptif: response.data.Descriptif,
-          slug: response.data.Identifiant,
-          image: response.data.imagePrincipale,
-        };
-        console.log(this.informations);
-      });
+      axios
+        .get(`https://back-italie.herokuapp.com/destinations/${id}`)
+        .then((response) => {
+          this.informations = {
+            nomDeVille: response.data.Titre,
+            date: response.data.Date,
+            descriptif: response.data.Descriptif,
+            slug: response.data.Identifiant,
+            image: response.data.imagePrincipale,
+          };
+          console.log(this.informations);
+        });
     },
   },
 };
 </script>
 
 <style lang='scss'>
+section#loading {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: red;
+  width: 100%;
+  height: 100vh;
+  z-index: 100;
+  visibility: visible;
+}
 .home-links a {
   margin-right: 1rem;
 }

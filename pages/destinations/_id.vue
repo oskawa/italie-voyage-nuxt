@@ -81,7 +81,7 @@ export default {
         columnWidth: ".grid-sizer",
         percentPosition: true,
         gutter: 0,
-
+     
         fitWidth: true,
       },
       id: this.$route.params.id,

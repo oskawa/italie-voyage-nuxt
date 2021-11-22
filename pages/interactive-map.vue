@@ -1,6 +1,11 @@
 <template>
   <div>
-    <section id="loading"></section>
+    <section v-show="!deleteLoading" id="loading">
+      <div>
+        <img src="/img/earth.svg" />
+        <p>Veuillez patienter...</p>
+      </div>
+    </section>
     <section id="canvas"></section>
     <section id="front">
       <div class="container-fluid">
@@ -76,7 +81,7 @@ export default {
         image: "",
       },
       showInformation: false,
-
+      deleteLoading: false,
       LOADING_MANAGER: null,
     };
   },
@@ -112,6 +117,8 @@ export default {
       loadingManager.onLoad = function () {
         console.log("Finito");
         RESOURCES_LOADED = true;
+        this.deleteLoading = true;
+        console.log(this.deleteLoading);
       };
       const loader = new THREE.TextureLoader(loadingManager);
       const height = loader.load("/three/alpha_HD.jpg");
@@ -248,17 +255,17 @@ export default {
 
       const clock = new THREE.Clock();
       loadingManager.onProgress = function (item, loaded, total) {
-            console.log(item, loaded, total);
-          };
+        console.log(item, loaded, total);
+      };
 
       const tick = () => {
         if (RESOURCES_LOADED == false) {
-          
           window.requestAnimationFrame(tick);
           return;
         }
         var test12 = document.querySelector("#loading");
-        test12.style.visibility = "hidden";
+
+        test12.classList = "cache";
         this.renderer1.render(scene, this.camera);
 
         this.renderer.render(scene, this.camera);
@@ -314,11 +321,71 @@ section#loading {
   right: 0;
   left: 0;
   bottom: 0;
-  background-color: red;
+  background-color: rgb(24, 24, 24);
   width: 100%;
   height: 100vh;
   z-index: 100;
-  visibility: visible;
+
+  div {
+    width: 150px;
+    height: 150px;
+
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    img {
+      width: 100px;
+      height: 100px;
+      -webkit-animation: spin 4s linear infinite;
+      -moz-animation: spin 4s linear infinite;
+      animation: spin 4s linear infinite;
+    }
+    p {
+      color: white;
+      margin-top: 1rem;
+    }
+  }
+}
+.cache {
+  opacity:1;
+  animation: 1s fadeIn;
+  animation-fill-mode: forwards;
+
+  
+}
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes fadeIn {
+  0%{
+     opacity: 1;
+  }
+  99% {
+    visibility: visible;
+  }
+  100% {
+    visibility: hidden;
+     opacity: 0;
+  }
 }
 .home-links a {
   margin-right: 1rem;

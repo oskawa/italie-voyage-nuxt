@@ -1,20 +1,14 @@
 <template>
   <div>
     <header>
+      <Slide right>
+        <NuxtLink to="/"><p>Accueil</p></NuxtLink>
+
+        <NuxtLink to="/interactive-map"><p>Carte Interactive</p></NuxtLink>
+      </Slide>
       <div class="container">
         <div class="row text-end">
-          <div class="col-12">
-            <ul>
-              <li>
-                <NuxtLink to="/"><p>Accueil</p></NuxtLink>
-              </li>
-              <li>
-                <NuxtLink to="/interactive-map"
-                  ><p>Carte Interactive</p></NuxtLink
-                >
-              </li>
-            </ul>
-          </div>
+          <div class="col-12"></div>
         </div>
       </div>
     </header>
@@ -22,7 +16,12 @@
 </template>
 
 <script>
-export default {};
+import { Slide } from "vue-burger-menu";
+export default {
+  components: {
+    Slide,
+  },
+};
 </script>
 
 <style lang="scss">
@@ -36,20 +35,22 @@ header {
   width: 100%;
   left: 0;
   top: 0;
+  .bm-menu {
+    background-color: #d49566;
+  }
   a {
     text-decoration: none;
-   
   }
   p {
     color: white;
   }
-  ul{
-      list-style: none;
-      padding:0;
-      display: inline-flex;
-      li:first-child{
-          margin-right: 1rem;
-      }
+  ul {
+    list-style: none;
+    padding: 0;
+    display: inline-flex;
+    li:first-child {
+      margin-right: 1rem;
+    }
   }
 }
 </style>

@@ -85,7 +85,13 @@ export default {
       LOADING_MANAGER: null,
     };
   },
+  destroyed() {
+    this.renderer.domElement = null;
+    this.renderer = null;
+   
+  },
   mounted() {
+
     this.init();
   },
   methods: {

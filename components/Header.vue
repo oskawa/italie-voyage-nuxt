@@ -18,6 +18,19 @@
 <script>
 import { Slide } from "vue-burger-menu";
 export default {
+   head() {
+    return {
+      title: "Voyage en Italie - Carte interactive",
+      meta: [
+        {
+          name: "description",
+          content:
+            "Carte interactive de l'Italie pour accéder à tous les projets !",
+          hid: "description",
+        },
+      ],
+    };
+  },
   components: {
     Slide,
   },

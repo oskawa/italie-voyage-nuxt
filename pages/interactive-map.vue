@@ -14,9 +14,7 @@
             id="bloc_retract"
             v-bind:class="{ translation: showInformation }"
             v-bind:style="[
-              showInformation
-                ? { visibility: 'visible' }
-                : { visibility: 'hidden' },
+              showInformation ? { visibility: 'visible' } : { visibility: 'hidden' },
             ]"
             class="col-12 col-lg-3 bloc_Blanc"
           >
@@ -29,9 +27,7 @@
               <p>{{ informations.date }}</p>
               <hr />
               <p v-html="informations.descriptif"></p>
-              <NuxtLink
-                :to="`/destinations/${informations.slug}`"
-                class="btn_stroke"
+              <NuxtLink :to="`/destinations/${informations.slug}`" class="btn_stroke"
                 >Voir la destination</NuxtLink
               >
               <div id="backToCamera" @click="returnToCamera">
@@ -43,9 +39,7 @@
             v-if="showInformation"
             v-bind:class="{ leftTranslation: showInformation }"
             v-bind:style="[
-              showInformation
-                ? { visibility: 'visible' }
-                : { visibility: 'hidden' },
+              showInformation ? { visibility: 'visible' } : { visibility: 'hidden' },
             ]"
             id="bloc_left"
             class="left"
@@ -88,10 +82,8 @@ export default {
   destroyed() {
     this.renderer.domElement = null;
     this.renderer = null;
-   
   },
   mounted() {
-
     this.init();
   },
   methods: {
@@ -102,9 +94,7 @@ export default {
       var RESOURCES_LOADED = false;
       const locations = [];
       try {
-        const results = await axios.get(
-          "https://back-italie.herokuapp.com/destinations"
-        );
+        const results = await axios.get("https://voyageapi.maxime-eloir.fr/voyage-api/v1/list-travel");
 
         for (let i = 0; i < results.data.length; i++) {
           locations.push({
@@ -200,12 +190,7 @@ export default {
        * Camera
        */
       // Base camera
-      this.camera = new THREE.PerspectiveCamera(
-        75,
-        sizes.width / sizes.height,
-        0.1,
-        100
-      );
+      this.camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
       this.camera.position.set(0, -0.1, 1);
       this.camera.lookAt(plane);
 
@@ -227,10 +212,7 @@ export default {
       accueil.appendChild(this.renderer1.domElement);
 
       // Controls
-      const controls = new OrbitControls(
-        this.camera,
-        this.renderer1.domElement
-      );
+      const controls = new OrbitControls(this.camera, this.renderer1.domElement);
       controls.enablePan = true;
       //controls.screenSpacePanning = false
       controls.minDistance = 0.3;
@@ -269,6 +251,7 @@ export default {
           window.requestAnimationFrame(tick);
           return;
         }
+
         var test12 = document.querySelector("#loading");
 
         test12.classList = "cache";
@@ -276,6 +259,7 @@ export default {
 
         this.renderer.render(scene, this.camera);
         // console.log(this.camera.position)
+       
         window.requestAnimationFrame(tick);
       };
 
@@ -320,7 +304,7 @@ export default {
 };
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 section#loading {
   position: absolute;
   top: 0;
@@ -359,11 +343,9 @@ section#loading {
   }
 }
 .cache {
-  opacity:1;
+  opacity: 1;
   animation: 1s fadeIn;
   animation-fill-mode: forwards;
-
-  
 }
 @-moz-keyframes spin {
   100% {
@@ -382,15 +364,15 @@ section#loading {
   }
 }
 @keyframes fadeIn {
-  0%{
-     opacity: 1;
+  0% {
+    opacity: 1;
   }
   99% {
     visibility: visible;
   }
   100% {
     visibility: hidden;
-     opacity: 0;
+    opacity: 0;
   }
 }
 .home-links a {
